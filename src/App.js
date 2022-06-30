@@ -1,9 +1,13 @@
+import { Routes , Route } from 'react-router-dom';
 import './App.css';
+import Home from './component/Home/Home'
 
 function App() {
   return (
     <div className="App">
-      <h3>power-hack-distribution-client</h3>
+      <Routes>
+      <Route path="/" element={<Home />} />
+      </Routes>
     </div>
   );
 }
