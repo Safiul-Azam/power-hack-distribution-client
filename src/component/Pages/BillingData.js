@@ -1,7 +1,10 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import AddBillModal from './AddBillModal';
 
 const BillingData = () => {
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true)
     return (
         <div className='mt-5 mb-3 container'>
             <nav class="navbar navbar-light bg-secondary ">
@@ -12,11 +15,17 @@ const BillingData = () => {
                             <input type="text" class="form-control px   -5" placeholder="Search" aria-label="Example text with button addon" aria-describedby="button-addon1"></input>
                         </div>
                     </div>
+                    <Button variant="success" onClick={handleShow}>
+                        Add New Bill
+                    </Button>
 
-                    <form >
-                        <button class="btn btn-success" type="submit">Add new Bill</button>
-                    </form>
                 </div>
+                {
+                    show && <AddBillModal
+                    show={show}
+                    setShow={setShow}
+                    ></AddBillModal>
+                }
             </nav>
         </div>
     );

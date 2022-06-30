@@ -1,15 +1,16 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import Loading from './Shared/Loading';
+import Loading from '../Shared/Loading';
+import SingleBill from './SingleBill';
 
 const BillingPage = () => {
-    const {data:billingList, isLoading, refetch} = useQuery('billList',()=>fetch('http://localhost:5000/billingList').then(res => res.json()))
+    const { data: billingList, isLoading, refetch } = useQuery('billList', () => fetch('http://localhost:5000/billingList').then(res => res.json()))
 
-    if(isLoading){
-       return <Loading></Loading>
+    if (isLoading) {
+        return <Loading></Loading>
     }
     return (
-        <div className='container'>
+        <div className='container mb-3'>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -22,7 +23,13 @@ const BillingPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {
+                        billingList.map(singleBill => <SingleBill
+                            key={singleBill._id}
+                            singleBill={singleBill}
+                            refetch={refetch}
+                        ></SingleBill>)
+                    }
                 </tbody>
             </table>
         </div>
