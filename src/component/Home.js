@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from '../Header/Header'
-import BillingPage from '../BillingPage/BillingPage'
-import './Home.css'
+import Header from './Header'
+import BillingPage from './BillingPage'
 
 const Home = () => {
     return (
-        <div className='home-container'>
+        <div className='border container mt-2'>
             <Header></Header>
             <BillingPage></BillingPage>
         </div>
