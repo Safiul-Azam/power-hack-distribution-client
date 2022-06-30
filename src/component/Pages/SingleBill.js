@@ -1,19 +1,23 @@
 import React from 'react';
-import AddBillModal from './AddBillModal';
+import Button from 'react-bootstrap/Button'
 
-const singleBill = ({ singleBill }) => {
-    const {_id, fullName, email, paidAmount, phone } = singleBill
+
+const singleBill = ({ singleBill,setShow }) => {
+    const { _id, firstName, lastName, email, paidAmount, phone } = singleBill
     return (
         <tr>
             <td>{_id}</td>
-            <td>{fullName}</td>
+            <td>{firstName} {lastName}</td>
             <td>{email}</td>
             <td>{paidAmount}</td>
             <td>{phone}</td>
             <td>
-                <button className='btn-secondary btn me-1'>E</button>
-                <button className='btn-secondary btn me-1'>X</button>
-                <AddBillModal></AddBillModal>
+                <Button variant="primary me-3">
+                    E
+                </Button>
+                <Button variant="danger" onClick={()=>setShow(singleBill)}>
+                    X
+                </Button>
             </td>
         </tr>
     );

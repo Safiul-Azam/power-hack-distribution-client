@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+import DeleteModal from './DeleteModal';
 import SingleBill from './SingleBill';
 
 const BillingPage = () => {
-    const { data: billingList, isLoading, refetch } = useQuery('billList', () => fetch('http://localhost:5000/billingList').then(res => res.json()))
+    const [show, setShow] = useState(null);
+    const { data: billingList, isLoading, refetch } = useQuery('billList', () => fetch('http://localhost:5000/billing-list').then(res => res.json()))
 
     if (isLoading) {
         return <Loading></Loading>
@@ -27,11 +29,19 @@ const BillingPage = () => {
                         billingList.map(singleBill => <SingleBill
                             key={singleBill._id}
                             singleBill={singleBill}
-                            refetch={refetch}
+                            setShow={setShow}
                         ></SingleBill>)
                     }
                 </tbody>
             </table>
+            {
+                show && <DeleteModal
+                show={show}
+                billingList={billingList}
+                setShow={setShow}
+                refetch={refetch}
+                ></DeleteModal>
+            }
         </div>
     );
 };

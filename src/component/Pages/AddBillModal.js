@@ -3,12 +3,29 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const AddBillModal = ({ show, setShow }) => {
     const handleClose = () => setShow(false);
-    const { register, formState: { errors }, handleSubmit } = useForm();
-
+    //React Form, onSubmit
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
+        fetch('http://localhost:5000/add-billing',{
+            method:"POST",
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {
+            if(result.insertedId){
+                toast.success('Add a new bill successfully.')
+            }
+            reset()
+        })
+        
+
         console.log(data)
     };
 
@@ -82,22 +99,22 @@ const AddBillModal = ({ show, setShow }) => {
                                 },
                                 minLength: {
                                     value: 11,
-                                    massage:'please! provide a valid phone number'
+                                    message:'please! provide a valid phone number'
                                 },
                                 maxLength: {
                                     value: 11,
-                                    massage:'please! provide a valid phone number'
+                                    message:'please! provide a valid phone number'
                                 }
                             })}
                                 type="number"
-                                placeholder="Your Amount" />
+                                placeholder="Your Phone number" />
                             {errors?.phone?.type === 'required' && <Form.Label className='text-danger'>{errors?.phone?.message}</Form.Label>}
                             {errors?.phone?.type === 'minLength' && <Form.Label className='text-danger'>{errors?.phone?.message}</Form.Label>}
                             {errors?.phone?.type === 'maxLength' && <Form.Label className='text-danger'>{errors?.phone?.message}</Form.Label>}
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
                             <Form.Label>Paid Amount</Form.Label>
-                            <Form.Control {...register('amount', {
+                            <Form.Control {...register('paidAmount', {
                                 required: {
                                     value: true,
                                     message: 'please provide your amount'
