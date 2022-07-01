@@ -4,6 +4,7 @@ import Loading from '../Shared/Loading';
 import AddBillModal from './AddBillModal';
 import DeleteModal from './DeleteModal';
 import SingleBill from './SingleBill';
+import BillingData from './BillingData'
 
 const BillingPage = () => {
     const [deleteBillInfo, setDeleteBillInfo] = useState(null);
@@ -27,6 +28,7 @@ const BillingPage = () => {
     }
     return (
         <div className='container mb-3'>
+            <BillingData></BillingData>
             <table className="table table-bordered table-striped">
                 <thead>
                     <tr>

@@ -1,16 +1,20 @@
 import { Routes , Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
-import AddBillModal from './component/Pages/AddBillModal';
+import Login from './component/Authentication/Login';
+import Registration from './component/Authentication/Registration';
+import Header from './component/Pages/Header';
 import Home from './component/Pages/Home'
 
 function App() {
   return (
-    <div className="App">
-      <AddBillModal></AddBillModal>
+    <div className="">
+      <Header></Header>
       <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Registration />} />
       </Routes>
       <ToastContainer />
     </div>
