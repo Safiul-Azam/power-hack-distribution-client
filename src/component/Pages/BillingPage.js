@@ -12,15 +12,15 @@ const BillingPage = () => {
     const [clickPage, setClickPage] = useState(0)
     const [perPageData, setParPageData] = useState(10)
     useEffect(() => {
-        fetch(`http://localhost:5000/billing-count?clickPage=${clickPage}&perPageData${perPageData}`)
+        fetch(`http://localhost:5000/billing-count`)
             .then(res => res.json())
             .then(data => {
                 const count = data.cursor
-                const pages = Math.ceil(count / 3)
+                const pages = Math.ceil(count /perPageData)
                 setPageCount(pages)
             })
-    }, [clickPage, perPageData])
-    const { data: billingList, isLoading, refetch } = useQuery('billList', () => fetch('http://localhost:5000/billing-list').then(res => res.json()))
+    }, [perPageData])
+    const { data: billingList, isLoading, refetch } = useQuery(['billList',clickPage,perPageData], () => fetch(`http://localhost:5000/billing-list/?clickPage=${clickPage}&perPageData=${perPageData}`).then(res => res.json()))
 
     if (isLoading) {
         return <Loading></Loading>
@@ -40,7 +40,7 @@ const BillingPage = () => {
                 </thead>
                 <tbody>
                     {
-                        billingList.map(singleBill => <SingleBill
+                        billingList?.map(singleBill => <SingleBill
                             key={singleBill._id}
                             singleBill={singleBill}
                             setDeleteBillInfo={setDeleteBillInfo}
@@ -53,12 +53,14 @@ const BillingPage = () => {
                 deleteBillInfo && <DeleteModal
                     deleteBillInfo={deleteBillInfo}
                     setDeleteBillInfo={setDeleteBillInfo}
+                    // setBillingList={setBillingList}
                     refetch={refetch}
                 ></DeleteModal>
             }
             {editBillingInfo && <EditBillingInfo
                 editBillingInfo={editBillingInfo}
                 setEditBillingInfo={setEditBillingInfo}
+                // setBillingList={setBillingList}
                 refetch={refetch}
             ></EditBillingInfo>}
 
@@ -68,7 +70,7 @@ const BillingPage = () => {
                     onClick={() => setClickPage(num)}
                 >{num + 1}</button>)
             }
-            {pageCount > 5 && <select onClick={e => setParPageData(e.target.value)} className='btn btn-outline-primary'>
+            {<select onClick={e => setParPageData(e.target.value)} className='btn btn-outline-primary'>
                 <option value="5">5</option>
                 <option value="10" selected>10</option>
                 <option value="15">15</option>

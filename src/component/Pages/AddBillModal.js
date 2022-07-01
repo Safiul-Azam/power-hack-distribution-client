@@ -24,11 +24,8 @@ const AddBillModal = ({ show, setShow }) => {
             }
             reset()
         })
-        
-
         console.log(data)
     };
-
     return (
         <>
             <Modal

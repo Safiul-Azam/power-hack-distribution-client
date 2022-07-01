@@ -25,6 +25,7 @@ const EditBillingInfo = ({ editBillingInfo,setEditBillingInfo,refetch }) => {
             setEditBillingInfo(null)
             toast.success('Bill info is updated. successfully')
             reset()
+            // setBillingList(data)
             refetch()
            }
         })
