@@ -4,8 +4,8 @@ This is a power distribution company. [Power Hack](https://power-hack-73d03.web.
 
 ## React bootstrap project
 
-* i tried to do everything. but jwt authentication is new for me. i used before firebase.
-* i mean if i could get a another day i could finish it.
+* i tried to do everything. but jwt authentication is new for me. so i could not authenticate by jwt
+* i mean if i could get a another day i could authentication through jwt .
 * and i used in my site pagination.
 
 ## i used as technology 
