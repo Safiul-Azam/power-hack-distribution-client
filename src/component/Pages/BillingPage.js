@@ -72,11 +72,7 @@ const BillingPage = () => {
                     onClick={() => setClickPage(num)}
                 >{num + 1}</button>)
             }
-            {<select onClick={e => setParPageData(e.target.value)} className='btn btn-outline-primary'>
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="15">15</option>
-            </select>}
+            
         </div>
     );
 };
