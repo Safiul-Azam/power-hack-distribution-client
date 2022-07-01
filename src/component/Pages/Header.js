@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-    const { data: billingList, isLoading, refetch } = useQuery('billList', () => fetch('http://localhost:5000/billing-list').then(res => res.json()))
+    const { data: billingList, isLoading, refetch } = useQuery('billList', () => fetch('https://kinder-donair-83694.herokuapp.com/billing-list').then(res => res.json()))
     // console.log(billingList)
     if(isLoading){
         return <Loading></Loading>

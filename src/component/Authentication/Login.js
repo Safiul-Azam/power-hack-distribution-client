@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
-        fetch('http://localhost:5000/registration')
+       
     }
 
 

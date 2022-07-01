@@ -19,7 +19,7 @@ const AddBillModal = ({ show, setShow ,editBillingInfo,setEditBillingInfo,refetc
     const onSubmit = (data) => {
         if(show){
 
-            fetch('http://localhost:5000/add-billing',{
+            fetch('https://kinder-donair-83694.herokuapp.com/add-billing',{
                 method:"POST",
                 headers:{
                     'content-type':'application/json'
@@ -38,7 +38,7 @@ const AddBillModal = ({ show, setShow ,editBillingInfo,setEditBillingInfo,refetc
             })
             console.log(data)
         }else if(editBillingInfo){
-            fetch(`http://localhost:5000/update-billing/${editBillingInfo?._id}`, {
+            fetch(`https://kinder-donair-83694.herokuapp.com/update-billing/${editBillingInfo?._id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json'

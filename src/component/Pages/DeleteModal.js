@@ -7,7 +7,7 @@ const DeleteModal = ({deleteBillInfo, setDeleteBillInfo,refetch }) => {
     const handleClose = ()=> setDeleteBillInfo(null)
     const {_id} = deleteBillInfo
     const handleConfirmDelete = ()=>{
-        fetch(`http://localhost:5000/delete-billing/${_id}`,{
+        fetch(`https://kinder-donair-83694.herokuapp.com/delete-billing/${_id}`,{
             method:'DELETE',
         })
         .then(res => res.json())

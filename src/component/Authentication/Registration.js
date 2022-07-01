@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Registration = () => {
+    const [user, setUser] = useState([])
+    const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
-        fetch('http://localhost:5000/registration',{
+        fetch('https://kinder-donair-83694.herokuapp.com/registration',{
             method:'POST',
             headers:{
                 'content-type':'application/json'
@@ -15,22 +18,33 @@ const Registration = () => {
         })
         .then(res => res.json())
         .then(result => {
-            console.log(result)
+            if(result.insertedId){
+                toast.success('Registration is completed')
+                reset()
+                navigate('/home')
+            }
+            
         })
         console.log(data)
 
     }
+    useEffect(()=>{
+        fetch('https://kinder-donair-83694.herokuapp.com/user')
+        .then(res => res.json())
+        .then(data => setUser(data))
+    },[])
+    
 
     return (
         <div className='w-50 mx-auto border my-5 p-5'>
-            <h3>Registration</h3>
+            <h3>Registration {user.length}</h3>
             <Form onSubmit={handleSubmit(onSubmit)} >
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Your Name</Form.Label>
                     <Form.Control
                         {...register('name', {
                             required: {
-                                value: true,
+                                value:true,
                                 message: 'Name is required'
                             }
                         })}
@@ -43,6 +57,7 @@ const Registration = () => {
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                         {...register('email', {
+                            
                             required: {
                                 value: true,
                                 message: 'A valid email is required'

@@ -13,7 +13,7 @@ const BillingPage = () => {
     const [clickPage, setClickPage] = useState(0)
     const [perPageData, setParPageData] = useState(10)
     useEffect(() => {
-        fetch(`http://localhost:5000/billing-count`)
+        fetch(`https://kinder-donair-83694.herokuapp.com/billing-count`)
             .then(res => res.json())
             .then(data => {
                 const count = data.cursor
@@ -21,7 +21,7 @@ const BillingPage = () => {
                 setPageCount(pages)
             })
     }, [perPageData])
-    const { data: billingList, isLoading, refetch } = useQuery(['billList',clickPage,perPageData], () => fetch(`http://localhost:5000/billing-list/?clickPage=${clickPage}&perPageData=${perPageData}`).then(res => res.json()))
+    const { data: billingList, isLoading, refetch } = useQuery(['billList',clickPage,perPageData], () => fetch(`https://kinder-donair-83694.herokuapp.com/billing-list/?clickPage=${clickPage}&perPageData=${perPageData}`).then(res => res.json()))
 
     if (isLoading) {
         return <Loading></Loading>
