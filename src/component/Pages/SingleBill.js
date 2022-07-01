@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button'
 
 
-const singleBill = ({ singleBill,setShow }) => {
+const singleBill = ({ singleBill, setDeleteBillInfo,setEditBillingInfo }) => {
     const { _id, firstName, lastName, email, paidAmount, phone } = singleBill
     return (
         <tr>
@@ -12,10 +12,10 @@ const singleBill = ({ singleBill,setShow }) => {
             <td>{paidAmount}</td>
             <td>{phone}</td>
             <td>
-                <Button variant="primary me-3">
+                <Button variant="primary me-3" onClick={()=>setEditBillingInfo(singleBill)}>
                     E
                 </Button>
-                <Button variant="danger" onClick={()=>setShow(singleBill)}>
+                <Button variant="danger" onClick={()=>setDeleteBillInfo(singleBill)}>
                     X
                 </Button>
             </td>

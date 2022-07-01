@@ -3,9 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 
-const DeleteModal = ({show, setShow,refetch }) => {
-    const handleClose = ()=> setShow(null)
-    const {_id} = show
+const DeleteModal = ({deleteBillInfo, setDeleteBillInfo,refetch }) => {
+    const handleClose = ()=> setDeleteBillInfo(null)
+    const {_id} = deleteBillInfo
     const handleConfirmDelete = ()=>{
         fetch(`http://localhost:5000/delete-billing/${_id}`,{
             method:'DELETE',
@@ -15,14 +15,14 @@ const DeleteModal = ({show, setShow,refetch }) => {
             if(data.deletedCount === 1){
                 toast.success('Deleted bill info successfully')
                 refetch()
-                setShow(null)
+                setDeleteBillInfo(null)
             }
         })
     }
     return (
             <>
                 <Modal
-                    show={show}
+                    show={deleteBillInfo}
                     onHide={handleClose}
                     backdrop="static"
                     keyboard={false}
