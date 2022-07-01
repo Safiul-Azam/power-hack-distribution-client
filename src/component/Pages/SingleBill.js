@@ -1,3 +1,5 @@
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 
@@ -12,11 +14,11 @@ const singleBill = ({ singleBill, setDeleteBillInfo,setEditBillingInfo }) => {
             <td>{paidAmount}</td>
             <td>{phone}</td>
             <td>
-                <Button variant="primary me-3" onClick={()=>setEditBillingInfo(singleBill)}>
-                    E
+                <Button variant="warning me-3 p-1" onClick={()=>setEditBillingInfo(singleBill)}>
+                <FontAwesomeIcon icon={faPenToSquare} />
                 </Button>
-                <Button variant="danger" onClick={()=>setDeleteBillInfo(singleBill)}>
-                    X
+                <Button variant="danger p-1" onClick={()=>setDeleteBillInfo(singleBill)}>
+                <FontAwesomeIcon icon={faTrash} />
                 </Button>
             </td>
         </tr>

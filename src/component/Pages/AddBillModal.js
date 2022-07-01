@@ -5,34 +5,65 @@ import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-const AddBillModal = ({ show, setShow }) => {
-    const handleClose = () => setShow(false);
+const AddBillModal = ({ show, setShow ,editBillingInfo,setEditBillingInfo,refetch}) => {
+    const handleClose = () => {
+        if(show){
+            setShow(false)
+        }else if(editBillingInfo){
+            setEditBillingInfo(null)
+        }
+    };
+    // const {_id} = editBillingInfo
     //React Form, onSubmit
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
-        fetch('http://localhost:5000/add-billing',{
-            method:"POST",
-            headers:{
-                'content-type':'application/json'
+        if(show){
+
+            fetch('http://localhost:5000/add-billing',{
+                method:"POST",
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if(result.insertedId){
+                    setShow(false)
+                    toast.success('Add a new bill successfully.')
+                    reset()
+                    refetch()
+                }
+
+            })
+            console.log(data)
+        }else if(editBillingInfo){
+            fetch(`http://localhost:5000/update-billing/${editBillingInfo?._id}`, {
+            method: "PATCH",
+            headers: {
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         })
-        .then(res => res.json())
-        .then(result => {
-            if(result.insertedId){
-                toast.success('Add a new bill successfully.')
-            }
-            reset()
-        })
-        console.log(data)
+            .then(res => res.json())
+            .then(result => {
+                if (result.modifiedCount === 1) {
+                    setEditBillingInfo(null)
+                    toast.success('Bill info is updated. successfully')
+                    reset()
+                    // setBillingList(data)
+                    refetch()
+                }
+            })
+        }
     };
     return (
         <>
             <Modal
-                show={show}
+                show={show || editBillingInfo}
                 onHide={handleClose}
                 backdrop="static"
-                keyboard={false}
+                keyboard={false || null}
                 className='p-5'
             >
                 <Modal.Header closeButton>

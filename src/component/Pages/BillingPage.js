@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+import AddBillModal from './AddBillModal';
 import DeleteModal from './DeleteModal';
-import EditBillingInfo from './EditBillingInfo';
 import SingleBill from './SingleBill';
 
 const BillingPage = () => {
@@ -57,12 +57,12 @@ const BillingPage = () => {
                     refetch={refetch}
                 ></DeleteModal>
             }
-            {editBillingInfo && <EditBillingInfo
-                editBillingInfo={editBillingInfo}
-                setEditBillingInfo={setEditBillingInfo}
-                // setBillingList={setBillingList}
-                refetch={refetch}
-            ></EditBillingInfo>}
+
+            {editBillingInfo && <AddBillModal
+            editBillingInfo={editBillingInfo}
+            setEditBillingInfo={setEditBillingInfo}
+            refetch={refetch}
+            ></AddBillModal>}
 
             {
                 [...Array(pageCount).keys()]?.map(num => <button

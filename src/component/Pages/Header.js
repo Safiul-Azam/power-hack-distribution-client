@@ -11,6 +11,7 @@ const Header = () => {
     }
     const amount = billingList?.map(bill => bill.paidAmount)
     const total =amount?.reduce((partialSum,a)=> parseInt(partialSum) + parseInt(a),0)
+    refetch()
      
     return (
         <div className='mt-2'>
